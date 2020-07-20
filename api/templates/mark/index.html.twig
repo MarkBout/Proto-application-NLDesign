@@ -2,7 +2,6 @@
 {% block content %}
     <style>
         ul li{
-            float: left;
             width: 50%;//helps to determine number of columns, for instance 33.3% displays 3 columns
         }
         ul{
@@ -15,7 +14,8 @@
 
     {% for item in templates %}
         <li>
-            {{ item.name }}
+            <p>{{ item.name }}</p>
+            <p>{{ item.description }}</p>
         </li>
     {% endfor %}
 </ul>

@@ -38,5 +38,14 @@ class MarkController extends AbstractController
         return $variables;
     }
 
+    /**
+     * This function shows all available processes.
+     *
+     * @Route("/test")
+     * @Template
+     */
+    public function testAction(){
+    }
+
 
 }
