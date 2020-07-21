@@ -33,7 +33,7 @@ class MarkController extends AbstractController
     public function indexAction(CommonGroundService $commonGroundService)
     {
         $variables = [];
-        $variables['templates'] = $commonGroundService->getResourceList(['component' => 'wrc','type' => 'templates'])['hydra:member'];
+        $variables['templates'] = $commonGroundService->getResourceList(['component' => 'wrc','type' => 'templates'],['templateGroups.name' => 'nieuws'],['limit' => '21'])['hydra:member'];
 
         return $variables;
     }
@@ -41,10 +41,14 @@ class MarkController extends AbstractController
     /**
      * This function shows all available processes.
      *
-     * @Route("/test")
+     * @Route("/cookies")
      * @Template
      */
-    public function testAction(){
+    public function cookiesAction(CommonGroundService $commonGroundService){
+        $variables = [];
+        $variables['templates'] = $commonGroundService->getResourceList(['component' => 'wrc','type' => 'templates'],['name' => 'cookies'])['hydra:member'];
+
+        return $variables;
     }
 
 

@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <style>
+
+        #display{
+            list-style-type: disc;
+            -webkit-column-count: 1;
+            -moz-column-count: 1;
+            column-count: 1;
+        }
+
+    </style>
+    <h1>Cookies description & date modified</h1>
+    <ul class="list list--card list--card-small" id="display">
+        {% for cookie in templates %}
+            <li class="card card--small">
+                <div href="#" class="card__content">
+                    <div class="card__body">
+                        <span class="card__title">{{ cookie.description }} </span>
+                        <p class="paragraph--s">{{ cookie.dateModified }}</p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

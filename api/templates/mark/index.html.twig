@@ -1,22 +1,27 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <style>
-        ul li{
-            width: 50%;//helps to determine number of columns, for instance 33.3% displays 3 columns
-        }
-        ul{
+
+        #display{
             list-style-type: disc;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+            column-count: 3;
         }
 
     </style>
-    <h1>Template namen</h1>
-<ul>
-
-    {% for item in templates %}
-        <li>
-            <p>{{ item.name }}</p>
-            <p>{{ item.description }}</p>
+    <h1>Template name & date modified</h1>
+    <ul class="list list--card list--card-small" id="display">
+        {% for template in templates %}
+        <li class="card card--small">
+                <div href="#" class="card__content">
+                    <div class="card__body">
+                        <span class="card__title">{{ template.name }} </span>
+                        <p class="paragraph--s">{{ template.dateModified }}</p>
+                    </div>
+                </div>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
 {% endblock %}
+
