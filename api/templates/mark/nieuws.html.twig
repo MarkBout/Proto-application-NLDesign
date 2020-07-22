@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <style>
+
+        #display{
+            list-style-type: disc;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+            column-count: 3;
+        }
+
+    </style>
+    <h1>Nieuws gesorteerd op datum aflopend</h1>
+    <ul class="list list--card list--card-small" id="display">
+        {% for nieuws in templates %}
+            <li class="card card--small">
+                <div href="#" class="card__content">
+                    <div class="card__body">
+                        <span class="card__title"> {{ nieuws.title }} </span>
+                        <p class="paragraph--s"> {{ nieuws.description }} </p><p class="paragraph--s"> {{ nieuws.dateCreated }}</p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
