@@ -60,7 +60,46 @@ class MarkController extends AbstractController
      */
     public function nieuwsAction(CommonGroundService $commonGroundService){
         $variables = [];
-        $variables['templates'] = $commonGroundService->getResourceList(['component' => 'wrc','type' => 'templates'],['limit' => 2, 'templateGroups.name' => 'Nieuws', 'order[dateCreated]'=>'desc'])['hydra:member'];
+        $variables['templates'] = $commonGroundService->getResourceList(['component' => 'wrc','type' => 'templates'],['limit' => 3, 'templateGroups.name' => 'Nieuws', 'order[dateCreated]'=>'desc'])['hydra:member'];
+
+        return $variables;
+    }
+
+    /**
+     * This function shows all available processes.
+     *
+     * @Route("/nieuws/{id}")
+     * @Template
+     */
+    public function nieuwAction(CommonGroundService $commonGroundService, $id){
+        $variables = [];
+        $variables['newsitem'] = $commonGroundService->getResource(['component' => 'wrc','type' => 'templates','id'=>$id]);
+
+        return $variables;
+    }
+
+    /**
+     * This function shows all available processes.
+     *
+     * @Route("/jobs")
+     * @Template
+     */
+    public function jobsAction(CommonGroundService $commonGroundService){
+        $variables = [];
+        $variables['baan'] = $commonGroundService->getResourceList(['component' => 'mrc','type' => 'job_functions'])['hydra:member'];
+
+        return $variables;
+    }
+
+    /**
+     * This function shows all available processes.
+     *
+     * @Route("/jobs/{id}")
+     * @Template
+     */
+    public function baanAction(CommonGroundService $commonGroundService, $id){
+        $variables = [];
+        $variables['baan'] = $commonGroundService->getResource(['component' => 'mrc','type' => 'job_functions','id' => $id]);
 
         return $variables;
     }

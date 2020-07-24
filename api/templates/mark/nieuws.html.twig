@@ -14,12 +14,12 @@
     <ul class="list list--card list--card-small" id="display">
         {% for nieuws in templates %}
             <li class="card card--small">
-                <div href="#" class="card__content">
+                <a href="{{ path('app_mark_nieuw', {id: nieuws.id}) }}" class="card__content">
                     <div class="card__body">
-                        <span class="card__title"> {{ nieuws.title }} </span>
+                        <span class="card__title"> {{ nieuws.title|capitalize }} </span>
                         <p class="paragraph--s"> {{ nieuws.description }} </p><p class="paragraph--s"> {{ nieuws.dateCreated }}</p>
                     </div>
-                </div>
+                </a>
             </li>
         {% endfor %}
     </ul>
