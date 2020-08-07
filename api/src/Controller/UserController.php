@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class UserController.
@@ -19,12 +20,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/login", methods={"GET"})
+     * @Route("/login")
      * @Template
      */
-    public function login(Request $request, CommonGroundService $commonGroundService, ParameterBagInterface $params, EventDispatcherInterface $dispatcher)
+    public function login(Request $request, AuthorizationCheckerInterface $authChecker, CommonGroundService $commonGroundService, ParameterBagInterface $params, EventDispatcherInterface $dispatcher)
     {
-        return [];
+        $application = $commonGroundService->getResource(['component' => 'wrc', 'type' => 'applications', 'id' => getenv('APP_ID')]);
+
+        if ($this->getUser()) {
+            if (isset($application['defaultConfiguration']['configuration']['userPage'])) {
+                return $this->redirect($application['defaultConfiguration']['configuration']['userPage']);
+            } else {
+                return $this->redirect($this->generateUrl('app_default_index'));
+            }
+        } else {
+            return $this->render('login/index.html.twig');
+        }
     }
 
     /**
@@ -57,10 +68,8 @@ class UserController extends AbstractController
     {
         $session->set('requestType', null);
         $session->set('request', null);
-        $session->set('user', null);
-        $session->set('employee', null);
         $session->set('contact', null);
-        $session->set('company', null);
+        $session->set('organisation', null);
 
         return $this->redirect($this->generateUrl('app_default_index'));
     }
