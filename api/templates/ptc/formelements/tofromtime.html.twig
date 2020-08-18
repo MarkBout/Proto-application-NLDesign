@@ -1,30 +1,32 @@
+{% set number = random(500) %}
 <label class="input__label" for="{{ property.id }}">{{ property.title }} {% if property.required is defined and property.required %}<span style="color: red;"><strong>*</strong></span>{% endif %}</label>
 <div class="row">
     <div class="col-sm-6">
         <label for="">{{ 'from'|trans|capitalize }}</label>
-        <input id="from" type="time" class="input__control input__control--text">
+        <input id="from-{{ number }}" type="time" class="input__control input__control--text">
     </div>
     <div class="col-sm-6">
         <label for="">{{ 'to'|trans|capitalize }}</label>
-        <input id="to" type="time" class="input__control input__control--text">
+        <input id="to-{{ number }}" type="time" class="input__control input__control--text">
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2">
         <button class="btn btn-primary" type="button" onclick="getTimes()" style="margin-top: 15px;">bevestigen</button>
-        <input  type="hidden" id="inputToFromTime">
+        <input  type="hidden" id="inputToFromTime-{{ number }}" name="request[properties][{{ property.name }}]">
     </div>
     <div class="col-sm-6" style="top: 15px; left: 5px;">
-        <div id="result"></div>
+        <div id="result-{{ number }}"></div>
     </div>
 </div>
 
 <script>
     function getTimes(){
-        let from = document.getElementById('from');
-        let to = document.getElementById('to');
-        let input = document.getElementById('inputToFromTime');
-        let result = document.getElementById('result');
+        let from = document.getElementById('from-{{ number }}');
+        let to = document.getElementById('to-{{ number }}');
+        let input = document.getElementById('inputToFromTime-{{ number }}');
+        let result = document.getElementById('result-{{ number }}');
+        console.log(from.value);
         input.value =  from.value + " en " + to.value;
         result.innerHTML = 'Uw gekozen tijdvak is tussen ' + from.value + " en " + to.value;
         console.log(input.value);
